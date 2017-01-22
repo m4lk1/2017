@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <title>demoHideBox</title>
+    <meta charset="UTF-8">
+    <style>
+
+        #container {
+            margin: 0 auto;
+            width: 90%;            text-align: center;
+        }
+
+        #row1, #row2, #row3, #row4{
+            width: 24%;
+            min-width: 120px;
+            float: left;
+        }
+
+        .externalBox{
+            background-color: green;
+        }
+
+        .internalBox{
+            background-color: yellow; 
+        }
+
+        .internalBox, .externalBox{
+            border: 1px solid black;
+            margin: 0 auto;
+            width: 90%;
+            min-height: 25%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+        }
+
+        @media screen and (max-width: 1500px) {
+            #row2 {
+                display: none;
+            }
+            #row1, #row3, #row4{
+                width: 32%;
+            }
+
+        }
+
+        @media screen and (max-width: 900px) {
+            #row2, #row3 {
+                display: none;
+            }
+            #row1, #row4{
+                width: 49%;
+            }
+
+        }
+
+        @media screen and (max-width: 550px) {
+            #row2, #row3, #row4 {
+                display: none;
+            }
+            #row1{
+                width: 99%;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+   <div id="container">
+       <div id="row1">
+           <div class="externalBox"></div>
+           <div class="externalBox"></div>
+           <div class="externalBox"></div>
+           <div class="externalBox"></div>
+       </div>
+       <div id="row2">
+           <div class="internalBox"></div>
+           <div class="internalBox"></div>
+           <div class="internalBox"></div>
+           <div class="internalBox"></div>
+       </div>
+       <div id="row3">
+           <div class="internalBox"></div>
+           <div class="internalBox"></div>
+           <div class="internalBox"></div>
+           <div class="internalBox"></div>
+       </div>
+       <div id="row4">
+           <div class="externalBox"></div>
+           <div class="externalBox"></div>
+           <div class="externalBox"></div>
+           <div class="externalBox"></div>
+       </div>
+   </div>
+<html>
