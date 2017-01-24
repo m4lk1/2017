@@ -165,7 +165,6 @@
     var nombre = "";
 
     var nombreCookie = window.document.cookie.substring(window.document.cookie.lastIndexOf(" ")+1, window.document.cookie.lastIndexOf("="));
-        console.log(nombreCookie);
 
 
      if (docCookies.hasItem(nombreCookie)) {
@@ -197,7 +196,6 @@
     function playGame() {
         clear();
         nombre = window.document.getElementById('txtName').value;
-        console.log(nombre);
         let randomDiv,
             idDiv,
             i = 0,
@@ -220,7 +218,6 @@
                 (function () {
                     if (i == randomPlay) {
                         clearInterval(interval);
-                        //Para volver a dar el onclick en el play, que hemos quitado para que no puedas darle indefinidamente
                         window.document.getElementById('butPlay').setAttribute('onclick', "playGame()");
                         let divsDefaults = window.document.querySelectorAll(".divJuego");
                         for (let k = 0; k < divsDefaults.length; k++)
@@ -268,16 +265,8 @@
             }
         divR =  window.document.getElementById('divR'+k);
            divR.setAttribute("id", "divR"+k );
-           divR.setAttribute("value", aDivs[k].color); //aDivs[k].divColor.outerHTML;
-            if(aDivs[k].color == "yellow"){
-                divR.style.background = 'url("imgs/1.jpg") no-repeat';
-            }else if(aDivs[k].color == "blue"){
-                divR.style.background = 'url("imgs/3.jpg") no-repeat';
-            }else if(aDivs[k].color == "red"){
-                divR.style.background = 'url("imgs/0.jpg") no-repeat';
-            }else if(aDivs[k].color == "green"){
-                divR.style.background = 'url("imgs/2.jpg") no-repeat';
-            }
+           divR.setAttribute("value", aDivs[k].color);
+            divR.style.background = getColor(aDivs[k].color);
             
         }
 
@@ -303,9 +292,7 @@
         let divCheck = window.document.getElementById('div' + contForDivRes);
         divCheck.setAttribute("value", divJuego.getAttribute("value"));
         aDivs[contForDivRes].respuesta = divCheck.getAttribute("value");
-        //Need fix dbl click on divCheck
         divCheck.innerHTML = divJuego.outerHTML;
-        console.log(divCheck);
         contForDivRes++;
 
         }
@@ -314,15 +301,7 @@
     function redrawChecked(){
         for(k in aDivs){
             let divCheck = window.document.getElementById('div' + k);
-            if(aDivs[k].respuesta == "yellow"){
-                divCheck.style.background = 'url("imgs/1.jpg") no-repeat';
-            }else if(aDivs[k].respuesta == "blue"){
-                divCheck.style.background = 'url("imgs/3.jpg") no-repeat';
-            }else if(aDivs[k].respuesta == "red"){
-                divCheck.style.background = 'url("imgs/0.jpg") no-repeat';
-            }else if(aDivs[k].respuesta == "green"){
-                divCheck.style.background = 'url("imgs/2.jpg") no-repeat';
-            }
+             divCheck.style.background = getColor(aDivs[k].respuesta);
             
         }
     }
@@ -360,6 +339,16 @@
     function getDate() {
         let seconds = new Date().getTime() / 1000;
         return seconds;
+    }
+
+        function getColor(color){
+        let colors = new Map();
+        colors.set('red', 'url("imgs/0.jpg") no-repeat');
+        colors.set('yellow', 'url("imgs/1.jpg") no-repeat')
+        colors.set('green', 'url("imgs/2.jpg") no-repeat');
+        colors.set('blue', 'url("imgs/3.jpg") no-repeat');
+
+        return colors.get(color);
     }
 </script>
 
