@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Juego Simon</title>
+    <script src="cookies.js"></script>
     <style>
         body {
             background: beige;
@@ -135,6 +136,16 @@
         #divContainerCheck div div, #divContainerRes div div{
             pointer-events: none;
         }
+
+        .textName{
+            display: inline-block;
+            margin-left: 35%;
+            margin-top: 2%;
+        }
+
+        .textName input{
+            margin-left: 10px;
+        }
     </style>
 </head>
 
@@ -151,6 +162,23 @@
     var contForDivRes = 0;
     var countClick = 0;
     var click, click2;
+    var nombre = "";
+
+    var nombreCookie = window.document.cookie.substring(window.document.cookie.lastIndexOf(" ")+1, window.document.cookie.lastIndexOf("="));
+        console.log(nombreCookie);
+
+
+     if (docCookies.hasItem(nombreCookie)) {
+        var aDivs = JSON.parse(docCookies.getItem(nombreCookie));
+        contForDivRes = Object.keys(aDivs).length;
+        randomPlay = contForDivRes;
+        containerGenerator(aDivs);
+        check();
+        redrawChecked();
+
+    } else {
+        var aDivs = {};
+    }
     window.onload = function () {
         let html = "";
         html += '<div class="divContainerdivJuego">';
@@ -159,6 +187,7 @@
 
         }
         html += '</div>';
+        html += '<div class="textName"><label for="txtName">Nombre</label><input name="txtName" type="text" id="txtName"></div>';
         html += '<div class="divButton"><button id="butPlay" onclick="playGame()">Play!</button></div>';
         window.document.querySelector('.divLeft').innerHTML = html;
         for (let k = 0; k < 4; k++)
@@ -167,6 +196,8 @@
 
     function playGame() {
         clear();
+        nombre = window.document.getElementById('txtName').value;
+        console.log(nombre);
         let randomDiv,
             idDiv,
             i = 0,
@@ -179,7 +210,7 @@
                     if (i > 0) idDiv.style.background = "url('imgs/" + randomDiv + ".jpg') no-repeat";
                 }, 500);
                 randomDiv = parseInt(Math.random() * 4);
-                idDiv = window.document.getElementById('divP'+randomDiv);
+                idDiv = window.document.getElementById('divP'+randomDiv);        html += ''
                 let color = idDiv.getAttribute("value");
                 aDivs[i] = Object.create(Object.prototype);
                 aDivs[i].color = color;
@@ -194,6 +225,15 @@
                         let divsDefaults = window.document.querySelectorAll(".divJuego");
                         for (let k = 0; k < divsDefaults.length; k++)
                             divsDefaults[k].setAttribute("ondblclick", "fillDivRes(this)");
+                            containerGenerator(aDivs);
+                    }
+                })();
+            },
+            1000);
+    }
+
+    function containerGenerator(aDivs){
+                        let html="", html2="", html3="";
                         html += '<div id="divContainerAllRes">';
                         html += '<div id="divContainerCheck">';
                         html2 += '<div id="divContainerRes">';
@@ -201,7 +241,11 @@
                         for (k in aDivs) {
                             html += '<div id = "div' + k + '"></div>';
                             html2 += '<div id = "divR' + k + '"></div>';
-                            html3 += '<div class="divInterval" id = "divT' + k + '"></div>';
+                            if(aDivs[k].interval == undefined){
+                             html3 += '<div class="divInterval" id = "divT' + k + '"></div>';
+                            }else{
+                            html3 += '<div class="divInterval" id = "divT' + k + '">'+aDivs[k].interval+'</div>';
+                            }
                         }
                         html2 += '</div>';
                         html += '<button id="butCheck" onclick="check()">Check!</button>'
@@ -211,26 +255,46 @@
                         window.document.querySelector('.divRigth').innerHTML = html;
                         window.document.querySelector('#divContainerAllRes').innerHTML += html2;
                         window.document.querySelector('#divContainerAllRes').innerHTML += html3;
-                    }
-                })();
-            },
-            1000);
     }
 
     function check() {
         let correctas = 0;
         let html = "";
+        let divR;
         let divRes = window.document.querySelector('#divContainerAllRes');
         for (k in aDivs) {
             if (aDivs[k].respuesta == aDivs[k].color) {
                 correctas++;
             }
-            window.document.getElementById('divR' + k).innerHTML = aDivs[k].divColor.outerHTML;
+        divR =  window.document.getElementById('divR'+k);
+           divR.setAttribute("id", "divR"+k );
+           divR.setAttribute("value", aDivs[k].color); //aDivs[k].divColor.outerHTML;
+            if(aDivs[k].color == "yellow"){
+                divR.style.background = 'url("imgs/1.jpg") no-repeat';
+            }else if(aDivs[k].color == "blue"){
+                divR.style.background = 'url("imgs/3.jpg") no-repeat';
+            }else if(aDivs[k].color == "red"){
+                divR.style.background = 'url("imgs/0.jpg") no-repeat';
+            }else if(aDivs[k].color == "green"){
+                divR.style.background = 'url("imgs/2.jpg") no-repeat';
+            }
+            
         }
-        html += '<div id="divWinner">Has acertado ' + correctas + ' de ' + randomPlay + '';
+
+        let playerName = nombre;
+        if(playerName.localeCompare("") == 0){
+            playerName = nombreCookie.substring(0, nombreCookie.indexOf("-"));
+        }
+        html += '<div id="divWinner">Has acertado ' + correctas + ' de ' + randomPlay + '  ' +playerName;
         if (!(divRes.innerHTML.includes(html)))
             divRes.innerHTML += html;
-        console.log(aDivs);
+            let today = new Date();
+            if(nombre.localeCompare("") == 0){
+                nombre = nombreCookie;
+            }else{
+            nombre += '-'+today.getDate()+'-'+today.getMonth()+1+'-'+today.getFullYear();
+            }
+        docCookies.setItem(nombre, JSON.stringify(aDivs), Infinity);
     }
 
     function fillDivRes(divJuego) {
@@ -244,6 +308,22 @@
         console.log(divCheck);
         contForDivRes++;
 
+        }
+    }
+
+    function redrawChecked(){
+        for(k in aDivs){
+            let divCheck = window.document.getElementById('div' + k);
+            if(aDivs[k].respuesta == "yellow"){
+                divCheck.style.background = 'url("imgs/1.jpg") no-repeat';
+            }else if(aDivs[k].respuesta == "blue"){
+                divCheck.style.background = 'url("imgs/3.jpg") no-repeat';
+            }else if(aDivs[k].respuesta == "red"){
+                divCheck.style.background = 'url("imgs/0.jpg") no-repeat';
+            }else if(aDivs[k].respuesta == "green"){
+                divCheck.style.background = 'url("imgs/2.jpg") no-repeat';
+            }
+            
         }
     }
 
