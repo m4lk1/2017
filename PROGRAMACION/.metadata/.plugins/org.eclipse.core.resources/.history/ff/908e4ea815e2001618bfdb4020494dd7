@@ -1,0 +1,61 @@
+package almacen;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class almacen {
+		
+	private articulo[] stockAlmacen = new articulo[30];
+	private static Scanner teclado = new Scanner(System.in);
+			
+			almacen(){
+				stockAlmacen[0] = new articulo("TV SAMSUNG 60inch");
+				stockAlmacen[1] = new articulo("Iphone 7");
+				stockAlmacen[2] = new articulo("HTC Vive 3D");
+				stockAlmacen[3] = new articulo("Mac Book Pro 15inch");
+				stockAlmacen[4] = new articulo("Nvidia GTX1080");
+			}
+
+			private void menu(){
+					int numero = 0;
+					do{
+						System.out.println("|----------------MENU----------------|");
+						System.out.println("|------------------------------------|");
+						System.out.println("| 1. Mantenimiento de socios --------|");
+						System.out.println("| 2. Socio de mayor antigüedad ------|");
+						System.out.println("| 3. Cuotas totales -----------------|");
+						System.out.println("| 4. Salir --------------------------|");
+						System.out.println("|------------------------------------|");
+						
+						numero = teclado.nextInt();
+						
+						while(numero > 5 ||  numero < 1){
+							System.out.println("No ha elegido ninguna opcion correcta, vuelva a indicar una opcion");
+							numero = teclado.nextInt();
+						}
+						
+						switch(numero){
+							case 1: ; break;
+							case 2: ; break;
+							case 3: ; break;
+							case 4: System.out.println("Saliendo"); break;
+						}
+						
+					}while(numero != 4);
+			}
+			
+	@Override
+			public String toString() {
+				System.out.println(("almacen [stockAlmacen=" + Arrays.toString(stockAlmacen) + "]"));
+				return "almacen [stockAlmacen=" + Arrays.toString(stockAlmacen);
+			}
+
+
+	public static void main(String[] args){
+		
+			almacen almacenesDani = new almacen();
+					almacenesDani.toString();
+
+	}
+
+}

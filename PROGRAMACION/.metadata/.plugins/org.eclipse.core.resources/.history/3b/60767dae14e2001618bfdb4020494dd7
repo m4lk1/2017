@@ -1,0 +1,31 @@
+package almacen;
+
+import java.util.Arrays;
+
+public class almacen {
+		
+	private articulo[] stockAlmacen = new articulo[30];
+			
+			almacen(){
+				stockAlmacen[0] = new articulo("Leche puleva");
+				stockAlmacen[1] = new articulo("Nocilla");
+				stockAlmacen[2] = new articulo("Crema de cacahuete");
+				stockAlmacen[3] = new articulo("Mermelada");
+				stockAlmacen[4] = new articulo("Pan de molde");
+			}
+
+			
+	@Override
+			public String toString() {
+				System.out.println("almacen [stockAlmacen=" + Arrays.toString(stockAlmacen) + "]");
+			}
+
+
+	public static void main(String[] args){
+		
+			almacen almacenesDani = new almacen();
+					almacenesDani.toString();
+
+	}
+
+}

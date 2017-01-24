@@ -1,0 +1,16 @@
+package almacen;
+
+public class almacen {
+		
+	private articulo[] stockAlmacen = new articulo[30];
+			
+			almacen(){
+				stockAlmacen[0] = new articulo("Leche puleva");
+			}
+
+	public static void main(String[] args){
+		
+
+	}
+
+}

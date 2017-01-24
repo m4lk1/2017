@@ -8,7 +8,7 @@ public class articulo {
 	
 	public articulo(String nArticulo) {
 		this.nArticulo = nArticulo;
-		this.precio = (int)(Math.random()*100+1);
+		this.precio = (int)(Math.random()*310+40);
 		this.stock = (int)(Math.random()*5000+2000);
 		this.stockMinimo = stock - ((int)(Math.random()*150+50));
 	}
