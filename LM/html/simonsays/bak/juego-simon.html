@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Juego Simon</title>
+    <script src="cookies.js"></script>
+    <style>
+        body {
+            background: beige;
+        }
+        
+        button {
+            background-color: white;
+            border: 1px solid;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: black;
+            border: 1px solid red;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        
+        .divLeft {
+            position: relative;
+            float: left;
+            width: 50%;
+        }
+        
+        .divRigth {
+            position: relative;
+            float: left;
+            width: 50%;
+        }
+        
+        .divContainerdivJuego {
+            display: table;
+            margin: 0 auto;
+            margin-top: 5%;
+            min-width: 512px;
+            background: black;
+            border: 2px solid black;
+            border-radius: 300px;
+        }
+        
+        .divJuego {
+            float: left;
+            width: 250px;
+            height: 250px;
+            border-radius: 25px;
+            border: 2px solid;
+            cursor: pointer;
+        }
+        
+        .divJuego:nth-child(2n+1) {
+            clear: both;
+        }
+        
+        .divButton {
+            display: table;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        
+        #butCheck {
+            margin-top: 20px;
+            margin-left: 70px;
+        }
+        
+        #divContainerCheck,
+        #divContainerRes {
+            float: left;
+        }
+        
+        #divContainerCheck div,
+        #divContainerRes div {
+            background: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 100px;
+            border: solid 1px;
+        }
+        
+        .divInterval {
+            font-size: 2em;
+            font-family: Arial;
+            margin-top: 20px;
+            margin-left: 300px;
+        }
+        
+        #divContainerRes {
+            margin-left: 20px;
+        }
+        
+        #divWinner {
+            margin-top: 20%;
+            font-size: 3em;
+            font-family: Arial;
+        }
+        
+        #divP0{
+		    background-color: black;
+		    border-radius: 300px 0px 0px 0px;
+
+	        }
+	        
+	    #divP1{
+		    background-color: black;
+		    border-radius: 0px 300px 0px 0px;
+	        }
+	        
+	    #divP2{
+		    background-color: black;
+		    border-radius: 0px 0px 0px 300px;
+	        }
+	        
+	    #divP3{
+		    background-color: black;
+		    border-radius: 0px 0px 300px 0px;
+	        }
+
+        #divContainerCheck div div, #divContainerRes div div{
+            pointer-events: none;
+        }
+
+        .textName{
+            display: inline-block;
+            margin-left: 35%;
+            margin-top: 2%;
+        }
+
+        .textName input{
+            margin-left: 10px;
+        }
+
+        input[type=text] {
+        padding:5px; 
+        border:2px solid #ccc; 
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+    }
+
+    input[type=text]:focus {
+        border-color:#333;
+    }
+
+    </style>
+</head>
+
+<body>
+    <div class="divContainer">
+        <div class="divLeft"></div>
+        <div class="divRigth"></div>
+    </div>
+</body>
+<script>
+    var colors = ["red", "yellow", "green", "blue"];
+    var randomPlay;
+    var contForDivRes = 0;
+    var countClick = 0;
+    var click, click2;
+    var nombre = "";
+
+    var nombreCookie = window.document.cookie.substring(window.document.cookie.lastIndexOf(" ")+1, window.document.cookie.lastIndexOf("="));
+
+
+     if (docCookies.hasItem(nombreCookie)) {
+        var aDivs = JSON.parse(docCookies.getItem(nombreCookie));
+        contForDivRes = Object.keys(aDivs).length;
+        randomPlay = contForDivRes;
+        containerGenerator(aDivs);
+        check();
+        redrawChecked();
+
+    } else {
+        var aDivs = {};
+    }
+    window.onload = function () {
+        let html = "";
+        html += '<div class="divContainerdivJuego">';
+        for (let k = 0; k < 4; k++) {
+            html += '<div class="divJuego" id="divP' + k + '" value="' + colors[k] + '""></div>';
+
+        }
+        html += '</div>';
+        html += '<div class="textName"><label for="txtName">Nombre</label><input name="txtName" type="text" id="txtName"></div>';
+        html += '<div class="divButton"><button id="butPlay" onclick="playGame()">Play!</button></div>';
+        window.document.querySelector('.divLeft').innerHTML = html;
+        for (let k = 0; k < 4; k++)
+            window.document.getElementById("divP"+k).style.background = "url('imgs/" + k + ".jpg') no-repeat";
+    }
+
+    function playGame() {
+        clear();
+        nombre = window.document.getElementById('txtName').value;
+        let randomDiv,
+            idDiv,
+            i = 0,
+            html = "",
+            html2 = "",
+            html3 = "";
+        randomPlay = parseInt(Math.random() * 8 + 1);
+        var interval = setInterval(function () {
+                setTimeout(function () {
+                    if (i > 0) idDiv.style.background = "url('imgs/" + randomDiv + ".jpg') no-repeat";
+                }, 500);
+                randomDiv = parseInt(Math.random() * 4);
+                idDiv = window.document.getElementById('divP'+randomDiv);        html += ''
+                let color = idDiv.getAttribute("value");
+                aDivs[i] = Object.create(Object.prototype);
+                aDivs[i].color = color;
+                aDivs[i].divColor = idDiv;
+                idDiv.style.background = "url('imgs/" + (randomDiv + 4) + ".jpg') no-repeat";
+                i++;
+                (function () {
+                    if (i == randomPlay) {
+                        clearInterval(interval);
+                        window.document.getElementById('butPlay').setAttribute('onclick', "playGame()");
+                        let divsDefaults = window.document.querySelectorAll(".divJuego");
+                        for (let k = 0; k < divsDefaults.length; k++)
+                            divsDefaults[k].setAttribute("ondblclick", "fillDivRes(this)");
+                            containerGenerator(aDivs);
+                    }
+                })();
+            },
+            1000);
+    }
+
+    function containerGenerator(aDivs){
+                        let html="", html2="", html3="";
+                        html += '<div id="divContainerAllRes">';
+                        html += '<div id="divContainerCheck">';
+                        html2 += '<div id="divContainerRes">';
+                        html3 += '<div id="divContainerTime">';
+                        for (k in aDivs) {
+                            html += '<div id = "div' + k + '"></div>';
+                            html2 += '<div id = "divR' + k + '"></div>';
+                            if(aDivs[k].interval == undefined){
+                             html3 += '<div class="divInterval" id = "divT' + k + '"></div>';
+                            }else{
+                            html3 += '<div class="divInterval" id = "divT' + k + '">'+aDivs[k].interval+'</div>';
+                            }
+                        }
+                        html2 += '</div>';
+                        html += '<button id="butCheck" onclick="check()">Check!</button>'
+                        html += '</div>';
+                        html3 += '</div>';
+                        html += '</div>';
+                        window.document.querySelector('.divRigth').innerHTML = html;
+                        window.document.querySelector('#divContainerAllRes').innerHTML += html2;
+                        window.document.querySelector('#divContainerAllRes').innerHTML += html3;
+    }
+
+    function check() {
+        let correctas = 0;
+        let html = "";
+        let divR;
+        let divRes = window.document.querySelector('#divContainerAllRes');
+        for (k in aDivs) {
+            if (aDivs[k].respuesta == aDivs[k].color) {
+                correctas++;
+            }
+        divR =  window.document.getElementById('divR'+k);
+           divR.setAttribute("id", "divR"+k );
+           divR.setAttribute("value", aDivs[k].color);
+            divR.style.background = getColor(aDivs[k].color);
+            
+        }
+
+        let playerName = nombre;
+        if(playerName.localeCompare("") == 0){
+            playerName = nombreCookie.substring(0, nombreCookie.indexOf("-"));
+        }
+        html += '<div id="divWinner">Has acertado ' + correctas + ' de ' + randomPlay + '  ' +playerName;
+        if (!(divRes.innerHTML.includes(html)))
+            divRes.innerHTML += html;
+            let today = new Date();
+            if(nombre.localeCompare("") == 0){
+                nombre = nombreCookie;
+            }else{
+            nombre += '-'+today.getDate()+'-'+today.getMonth()+1+'-'+today.getFullYear();
+            }
+        docCookies.setItem(nombre, JSON.stringify(aDivs), Infinity);
+    }
+
+    function fillDivRes(divJuego) {
+        if(contForDivRes < randomPlay){
+        intervalClick();
+        let divCheck = window.document.getElementById('div' + contForDivRes);
+        divCheck.setAttribute("value", divJuego.getAttribute("value"));
+        aDivs[contForDivRes].respuesta = divCheck.getAttribute("value");
+        divCheck.innerHTML = divJuego.outerHTML;
+        contForDivRes++;
+
+        }
+    }
+
+    function redrawChecked(){
+        for(k in aDivs){
+            let divCheck = window.document.getElementById('div' + k);
+             divCheck.style.background = getColor(aDivs[k].respuesta);
+            
+        }
+    }
+
+    function intervalClick() {
+        let resta = 0;
+        if (click == null) {
+            click = getDate();
+        } else {
+            click2 = getDate();
+            resta = click2 - click;
+            click = click2;
+        }
+        aDivs[countClick].interval = resta.toFixed(2);
+        window.document.getElementById('divT' + countClick).innerHTML = aDivs[countClick].interval;
+        countClick++;
+    }
+
+    function clear() {
+        countClick = 0;
+        click = null;
+        aDivs = {};
+        contForDivRes = 0;
+        window.document.getElementById('butPlay').removeAttribute('onclick');
+        let divsDefaults = window.document.querySelectorAll(".divJuego");
+        for (let k = 0; k < divsDefaults.length; k++)
+            divsDefaults[k].removeAttribute("ondblclick");
+        let element = window.document.getElementById('divContainerAllRes');
+        if (element) {
+            element = window.document.getElementById('divContainerAllRes');
+            element.parentElement.removeChild(element);
+        }
+    }
+
+    function getDate() {
+        let seconds = new Date().getTime() / 1000;
+        return seconds;
+    }
+
+        function getColor(color){
+        let colors = new Map();
+        colors.set('red', 'url("imgs/0.jpg") no-repeat');
+        colors.set('yellow', 'url("imgs/1.jpg") no-repeat')
+        colors.set('green', 'url("imgs/2.jpg") no-repeat');
+        colors.set('blue', 'url("imgs/3.jpg") no-repeat');
+
+        return colors.get(color);
+    }
+</script>
+
+</html>

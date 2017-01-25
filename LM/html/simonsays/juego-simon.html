@@ -177,7 +177,6 @@
 
     var nombreCookie = window.document.cookie.substring(window.document.cookie.lastIndexOf(" ")+1, window.document.cookie.lastIndexOf("="));
 
-
      if (docCookies.hasItem(nombreCookie)) {
         var aDivs = JSON.parse(docCookies.getItem(nombreCookie));
         contForDivRes = Object.keys(aDivs).length;
@@ -285,14 +284,14 @@
         if(playerName.localeCompare("") == 0){
             playerName = nombreCookie.substring(0, nombreCookie.indexOf("-"));
         }
-        html += '<div id="divWinner">Has acertado ' + correctas + ' de ' + randomPlay + '  ' +playerName;
+        html += '<div id="divWinner">Acertastes ' + correctas + ' de ' + randomPlay + '  ' +playerName;
         if (!(divRes.innerHTML.includes(html)))
             divRes.innerHTML += html;
             let today = new Date();
             if(nombre.localeCompare("") == 0){
                 nombre = nombreCookie;
             }else{
-            nombre += '-'+today.getDate()+'-'+today.getMonth()+1+'-'+today.getFullYear();
+            nombre += '-'+today.getDate()+'-'+today.getMonth()+1+'-'+today.getFullYear()+'-'+today.getHours()+'-'+today.getMinutes()+'-'+today.getSeconds();
             }
         docCookies.setItem(nombre, JSON.stringify(aDivs), Infinity);
     }
