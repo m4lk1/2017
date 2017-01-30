@@ -1,0 +1,70 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Disco {
+		private String titulo;
+		private int duracionMinutos;
+		private int año;
+		private ArrayList<Cancion> tracklist;
+		private static Scanner teclado = new Scanner(System.in);
+		private Cancion cancion;
+		
+		
+		public Disco(String titulo, int duracionMinutos, int año) {
+			this.titulo = titulo;
+			this.duracionMinutos = duracionMinutos;
+			this.año = año;
+			this.tracklist = new ArrayList<Cancion>();
+			cancion = new Cancion();
+		}
+
+		public Disco() {
+			System.out.println("Indique el titulo del disco");
+			this.titulo = teclado.nextLine();
+			System.out.println("Indique la duracion en minutos");
+			this.duracionMinutos = teclado.nextInt();
+			System.out.println("Indique el año del disco");
+			this.año = teclado.nextInt();
+			teclado.nextLine();
+			this.tracklist = new ArrayList<Cancion>();
+		}
+
+		public String getTitulo() {
+			return titulo;
+		}
+
+		public void setTitulo(String titulo) {
+			this.titulo = titulo;
+		}
+
+		public int getDuracionMinutos() {
+			return duracionMinutos;
+		}
+
+		public void setDuracionMinutos(int duracionMinutos) {
+			this.duracionMinutos = duracionMinutos;
+		}
+
+		public int getAño() {
+			return año;
+		}
+
+		public void setAño(int año) {
+			this.año = año;
+		}
+
+		public ArrayList<Cancion> getTracklist() {
+			return tracklist;
+		}
+
+		public void setTracklist(ArrayList<Cancion> tracklist) {
+			this.tracklist = tracklist;
+		}
+
+		@Override
+		public String toString() {
+			return "Disco [titulo=" + titulo + ", duracionMinutos=" + duracionMinutos + ", año=" + año + ", tracklist="
+					+ tracklist + "]";
+		}
+		
+}

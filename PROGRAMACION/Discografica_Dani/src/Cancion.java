@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class Cancion {
+	
+	private String titulo;
+	private int segundosDuracion;
+	private String genero;
+	private static Scanner teclado = new Scanner(System.in);
+	
+	public Cancion(String titulo, int segundosDuracion, String genero, boolean numero1) {
+		this.titulo = titulo;
+		this.segundosDuracion = segundosDuracion;
+		this.genero = genero;
+	}
+	
+	public Cancion() {
+		System.out.println("Indique el titulo de la canción");
+		this.titulo = teclado.nextLine();
+		System.out.println("Indique la duracion de la cancion en segundos");
+		this.segundosDuracion = teclado.nextInt();
+		System.out.println("Indique el genero (folk, rock, metal...");
+		teclado.nextLine();
+		this.genero = teclado.nextLine();
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public int getSegundosDuracion() {
+		return segundosDuracion;
+	}
+
+	public void setSegundosDuracion(int segundosDuracion) {
+		this.segundosDuracion = segundosDuracion;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	
+	public void altaCancion(){}
+	public void bajaCancion(){}
+	public void modificarCancion(){}
+	public void listadoCanciones(){}
+	
+	
+	
+	
+}

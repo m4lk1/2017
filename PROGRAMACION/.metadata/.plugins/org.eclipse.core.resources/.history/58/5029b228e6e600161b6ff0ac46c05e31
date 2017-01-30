@@ -1,0 +1,4 @@
+
+public class Disco {
+		private Cancion[] tracklist = new Cancion[20];
+}

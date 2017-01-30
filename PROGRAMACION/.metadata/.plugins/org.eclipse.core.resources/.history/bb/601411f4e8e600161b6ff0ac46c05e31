@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+public class Componente {
+		private String nombre;
+		private String apellidos;
+		private ArrayList<Instrumento> instrumentos;
+		
+		
+		public Componente(String nombre, String apellidos) {
+			this.nombre = nombre;
+			this.apellidos = apellidos;
+			this.instrumentos = new ArrayList<Instrumento>();
+		}
+		
+		
+	
+}

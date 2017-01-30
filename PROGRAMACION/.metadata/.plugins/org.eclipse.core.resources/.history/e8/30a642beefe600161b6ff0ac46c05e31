@@ -1,0 +1,87 @@
+import java.util.Scanner;
+
+public class Cancion {
+	
+	private String titulo;
+	private int segundosDuracion;
+	private String genero;
+	private static Scanner teclado = new Scanner(System.in);
+	
+	public Cancion(String titulo, int segundosDuracion, String genero, boolean numero1) {
+		this.titulo = titulo;
+		this.segundosDuracion = segundosDuracion;
+		this.genero = genero;
+	}
+	
+	public Cancion() {
+		System.out.println("Indique el titulo de la canción");
+		this.titulo = teclado.nextLine();
+		System.out.println("Indique la duracion de la cancion en segundos");
+		this.segundosDuracion = teclado.nextInt();
+		System.out.println("Indique el genero (folk, rock, metal...");
+		teclado.nextLine();
+		this.genero = teclado.nextLine();
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public int getSegundosDuracion() {
+		return segundosDuracion;
+	}
+
+	public void setSegundosDuracion(int segundosDuracion) {
+		this.segundosDuracion = segundosDuracion;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public static void menuCancion(){
+			int numeroA = 0;
+			do{
+			System.out.println("|----------MENU MANTENIMIENTO--------|");
+			System.out.println("|------------------------------------|");
+			System.out.println("| 1. Añadir cancion -----------------|");
+			System.out.println("| 2. Baja de cancion ----------------|");
+			System.out.println("| 3. Modificar cancion --------------|");
+			System.out.println("| 4. Listado canciones --------------|");
+			System.out.println("| 5. Salir --------------------------|");
+			System.out.println("|------------------------------------|");
+			
+			numeroA = teclado.nextInt();
+			
+			while(numeroA > 5 ||  numeroA < 1){
+				System.out.println("No ha elegido ninguna opcion correcta, vuelva a indicar una opcion");
+				numeroA = teclado.nextInt();
+			}
+			
+				switch(numeroA){
+					case 1: altaCancion(); break;
+					case 2: bajaCancion(); break;
+					case 3: modificarCancion(); break;
+					case 4: listadoCanciones(); break;
+					case 5: System.out.println("Saliendo"); break;
+				}
+			}while(numeroA != 5);
+	}
+	
+	public void altaCancion(){}
+	public void bajaCancion(){}
+	public void modificarCancion(){}
+	public void listadoCanciones(){}
+	
+	
+	
+	
+}

@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+
+public class Disco {
+		private String titulo;
+		private int duracionMinutos;
+		private int año;
+		private ArrayList<String> generos = new ArrayList<String>();
+		private ArrayList<Cancion> tracklist = new ArrayList<Cancion>();
+		
+		
+		public Disco(String titulo, int duracionMinutos, int año) {
+			this.titulo = titulo;
+			this.duracionMinutos = duracionMinutos;
+			this.año = año;
+			this.generos = generos;
+			this.tracklist = tracklist;
+		}
+		
+		
+}

@@ -1,0 +1,25 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Componente {
+		private String nombre;
+		private String apellidos;
+		private ArrayList<Instrumento> instrumentos;
+		private static Scanner teclado = new Scanner(System.in);
+		
+		
+		public Componente(String nombre, String apellidos) {
+			this.nombre = nombre;
+			this.apellidos = apellidos;
+			this.instrumentos = new ArrayList<Instrumento>();
+		}
+		
+		public Componente() {
+			System.out.println("Indique el nombre");
+			this.nombre = nombre;
+			System.out.println("Indique los apellidos");
+			this.apellidos = apellidos;
+			this.instrumentos = new ArrayList<Instrumento>();
+		}
+	
+}

@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Disco {
+		private String titulo;
+		private int duracionMinutos;
+		private int año;
+		private ArrayList<Cancion> tracklist = new ArrayList<Cancion>();
+		private static Scanner teclado = new Scanner(System.in);
+		
+		
+		public Disco(String titulo, int duracionMinutos, int año) {
+			this.titulo = titulo;
+			this.duracionMinutos = duracionMinutos;
+			this.año = año;
+			this.tracklist = tracklist;
+		}
+
+		public Disco() {
+			this.titulo = titulo;
+			this.duracionMinutos = duracionMinutos;
+			this.año = año;
+			this.tracklist = tracklist;
+		}
+		
+}

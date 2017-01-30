@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Grupo {
+		private String nombre;
+		private String genero;
+		private int anioFundacion;
+		private ArrayList<Componente> componentes;
+		private ArrayList<Disco> discos;
+		private static Scanner teclado = new Scanner(System.in);
+		
+		public Grupo(String nombre, String genero, int anioFundacion) {
+			this.nombre = nombre;
+			this.genero = genero;
+			this.anioFundacion = anioFundacion;
+			this.componentes = componentes;
+			this.discos = discos;
+		}
+		
+		
+		
+}

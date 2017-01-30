@@ -1,0 +1,127 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Disco {
+		private String titulo;
+		private int duracionMinutos;
+		private int año;
+		private ArrayList<Cancion> tracklist;
+		private static Scanner teclado = new Scanner(System.in);
+		
+		
+		
+		public Disco(String titulo, int duracionMinutos, int año) {
+			this.titulo = titulo;
+			this.duracionMinutos = duracionMinutos;
+			this.año = año;
+			this.tracklist = new ArrayList<Cancion>();
+			Cancion cancion = new Cancion();
+			tracklist.add(cancion);
+		}
+
+		public Disco() {
+			System.out.println("Indique el titulo del disco");
+			this.titulo = teclado.nextLine();
+			System.out.println("Indique la duracion en minutos");
+			this.duracionMinutos = teclado.nextInt();
+			System.out.println("Indique el año del disco");
+			this.año = teclado.nextInt();
+			teclado.nextLine();
+			this.tracklist = new ArrayList<Cancion>();
+			Cancion cancion = new Cancion();
+		}
+		
+		public void menu(){
+				int numeroA = 0;
+				do{
+				System.out.println("|----------MENU MANTENIMIENTO--------|");
+				System.out.println("|------------------------------------|");
+				System.out.println("| 1. Alta disco ---------------------|");
+				System.out.println("| 2. Baja disco ---------------------|");
+				System.out.println("| 3. Modificar disco ----------------|");
+				System.out.println("| 4. Listado de discos --------------|");
+				System.out.println("| 5. Salir --------------------------|");
+				System.out.println("|------------------------------------|");
+				
+				numeroA = teclado.nextInt();
+				
+				while(numeroA > 5 ||  numeroA < 1){
+					System.out.println("No ha elegido ninguna opcion correcta, vuelva a indicar una opcion");
+					numeroA = teclado.nextInt();
+				}
+				
+					switch(numeroA){
+						case 1: altaDisco(); break;
+						case 2: bajaDisco(); break;
+						case 3: modificarDisco(); break;
+						case 4: listadoDiscos(); break;
+						case 5: System.out.println("Saliendo"); break;
+					}
+				}while(numeroA != 5);
+		}
+		
+		public void altaDisco(){
+			int interruptor = 0;
+			
+			
+			do{
+			System.out.println("¿Quieres añadir canciones al disco? (1 para si 2 para no)");
+			interruptor = teclado.nextInt();
+			
+			while (interruptor != 1 && interruptor !=2 ){
+				System.out.println("Error, vuelve a indicar un numero");
+				interruptor = teclado.nextInt();
+			  }
+			
+			switch (interruptor) {
+			case 1: cancion.menuCancion(); break;
+			case 2: System.out.println("Saliendo"); break;
+			}
+			
+			}while(interruptor != 2);
+			
+			
+		}
+		public void bajaDisco(){}
+		public void modificarDisco(){}
+		public void listadoDiscos(){}
+
+		public String getTitulo() {
+			return titulo;
+		}
+
+		public void setTitulo(String titulo) {
+			this.titulo = titulo;
+		}
+
+		public int getDuracionMinutos() {
+			return duracionMinutos;
+		}
+
+		public void setDuracionMinutos(int duracionMinutos) {
+			this.duracionMinutos = duracionMinutos;
+		}
+
+		public int getAño() {
+			return año;
+		}
+
+		public void setAño(int año) {
+			this.año = año;
+		}
+
+		public ArrayList<Cancion> getTracklist() {
+			return tracklist;
+		}
+
+		public void setTracklist(ArrayList<Cancion> tracklist) {
+			this.tracklist = tracklist;
+		}
+
+		@Override
+		public String toString() {
+			return "Disco [titulo=" + titulo + ", duracionMinutos=" + duracionMinutos + ", año=" + año + ", tracklist="
+					+ tracklist + "]";
+		}
+		
+}
